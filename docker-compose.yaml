@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
       args:
         GOOGLE_ID: 798297429660-bi65t8db5f7l5qd9mqlho172f8bm9175.apps.googleusercontent.com
+    ports:
+      - "3000:3000"
 
   blog-project-api:
     image: tientrandevops/blog-project-server:latest  # Thay 'your_dockerhub_username' bằng tên người dùng của bạn
@@ -21,7 +23,8 @@ services:
       SQLSERVER_USER: sa  # Tên người dùng cơ sở dữ liệu
       SQLSERVER_PASSWORD: 12345  # Mật khẩu người dùng cơ sở dữ liệu
       SQLSERVER_HOST: db  # Tên dịch vụ của cơ sở dữ liệu
-
+    ports:
+      - "5290:5290"
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest  # Hình ảnh SQL Server
     restart: always
