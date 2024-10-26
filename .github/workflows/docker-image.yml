@@ -60,7 +60,7 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
 
           # Pull image mới nhất và chạy
-          docker-compose -f ~/docker-compose.yaml down
-          docker-compose -f ~/docker-compose.yaml pull
-          docker-compose -f ~/docker-compose.yaml up -d
+          sudo docker-compose -f ~/docker-compose.yaml down
+          sudo docker-compose -f ~/docker-compose.yaml pull
+          sudo docker-compose -f ~/docker-compose.yaml up -d
           EOF
