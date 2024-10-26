@@ -1,0 +1,13 @@
+/* Thiết lập kích cỡ cho container của editor */
+.ql-container.ql-snow {
+  width: 100%; /* Hoặc chiều rộng cố định như '600px' */
+  height: 900px; /* Chiều cao cố định */
+  border: 1px solid #ddd; /* Viền của editor */
+  border-radius: 4px; /* Bo góc cho editor */
+}
+
+/* Thiết lập kích cỡ cho nội dung bên trong editor */
+.ql-editor {
+  height: 100%; /* Chiều cao của nội dung chiếm toàn bộ chiều cao của container */
+  padding: 10px; /* Padding nội dung bên trong editor */
+}

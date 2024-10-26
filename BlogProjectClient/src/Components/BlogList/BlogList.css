@@ -1,0 +1,56 @@
+.blog-list {
+    padding: 10px;
+  }
+  
+  .header-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .header-title {
+    margin-bottom: 16px;
+  }
+  
+  .filter-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .blog-card {
+    margin-bottom: 2px;
+  }
+  
+  .blog-card-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .blog-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 16px;
+  }
+  
+  .blog-details {
+    flex: 1;
+  }
+  .card-description {
+    white-space: normal; /* Đảm bảo nội dung xuống dòng */
+    overflow-wrap: break-word; /* Đảm bảo từ dài không làm rối layout */
+    word-break: break-word; /* Đảm bảo từ dài bị bẻ gãy nếu cần */
+  }
+  .rowBlog{
+    padding: 0% 20%
+   }
+  @media (max-width: 768px){
+    .rowBlog{
+      padding: 0% 0%;
+    }
+  }
+  @media ((max-width: 1024px) and (min-width: 768px)){
+    .rowBlog{
+      padding: 0% 0%;
+    }
+  }

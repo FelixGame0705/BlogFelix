@@ -1,0 +1,79 @@
+/* Cấu hình cho menu chính */
+.custom-menu {
+    background-color: #001529; /* Màu nền của menu */
+    border-bottom: 1px solid #1890ff; /* Đường viền dưới của menu */
+    padding-right: 20%; /* Thêm khoảng cách 20% vào hai bên của menu */
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước tổng thể của menu */
+}
+
+
+.welcome{
+  align-self: center flex-start;
+  color: white;
+  position: absolute;
+}
+
+.menu-button {
+    background-color: rgba(0, 0, 0, 0.88);
+    border: 5px #ffffff;
+  }
+
+/* Cấu hình cho các mục menu */
+.custom-menu .ant-menu-item {
+    color: #ffffff; /* Màu chữ của các mục menu */
+}
+
+/* Cấu hình khi di chuột qua các mục menu */
+.custom-menu .ant-menu-item a:hover {
+   
+    color: #4bccff; /* Màu chữ khi di chuột qua mục menu */
+}
+
+/* Cấu hình cho menu hiện tại (được chọn) */
+.custom-menu .ant-menu-item-active {
+    background-color: #1890ff; /* Màu nền của mục menu hiện tại */
+    color: #ffffff; /* Màu chữ của mục menu hiện tại */
+}
+.ant-menu-item-selected {
+    background-color: transparent !important;
+  }
+
+/* Cấu hình cho logo */
+.custom-logo {
+    color: white; /* Màu chữ của logo */
+    font-weight: bold; /* Đậm chữ của logo */
+    font-size: 24px; /* Kích thước chữ của logo */
+    margin-right: auto; /* Đẩy logo sang bên trái */
+    padding-left: 20%;
+}
+
+.ant-drawer-header{
+    border-bottom: 2px solid #000000;
+}
+
+/* AppHeader.css */
+
+/* Ẩn menu ngang trên di động */
+@media (max-width: 768px) {
+    .custom-menu {
+      display: none;
+    }
+    .menu-button {
+      display: block; /* Nút hamburger chỉ hiện trên di động */
+    }
+    .welcome {
+      display: none;
+    }
+  }
+  
+  /* Hiển thị menu ngang trên màn hình lớn */
+@media (min-width: 769px) {
+    .custom-menu {
+      display: flex;
+    }
+    .menu-button {
+      display: none; /* Ẩn nút hamburger trên màn hình lớn */
+    }
+  }
+  
+  

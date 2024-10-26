@@ -1,0 +1,22 @@
+services:
+  blog-project-client:
+    container_name: blog-project-client
+    image: blog-project-client:latest
+    restart: always
+    networks:
+      - blog-proj-networks
+    ports:
+      - 3000:80
+    
+  blog-project-api:
+    container_name: blog-project-api
+    image: blog-project-server:latest
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - blog-proj-networks
+
+networks:
+  blog-proj-networks:
+    name: blog-proj-networks

@@ -1,0 +1,17 @@
+services:
+  blog-project-client:
+    image: blog-project-client:latest
+    build:
+      context: ./BlogProjectClient
+      dockerfile: Dockerfile
+      args:
+        GOOGLE_ID: 798297429660-bi65t8db5f7l5qd9mqlho172f8bm9175.apps.googleusercontent.com
+  
+  blog-project-api:
+    image: blog-project-server:latest
+    build:
+      context: ./BlogProjectServer
+      dockerfile: ./api/Dockerfile
+
+  
+  

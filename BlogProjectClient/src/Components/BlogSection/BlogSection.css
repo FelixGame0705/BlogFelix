@@ -1,0 +1,27 @@
+.fixed-card {
+    min-width: 100%;
+    width: 100%; /* Đảm bảo card chiếm hết chiều ngang của container */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa */
+    height: 100%; /* Chiều cao cố định của card */
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .ant-card-cover{
+    display: flex;
+  }
+
+  .fixed-card .ant-card-cover {
+    flex: 1 1 auto;
+    overflow: hidden; /* Đảm bảo phần dư của ảnh bị cắt */
+  }
+  
+  .fixed-card .imgCard {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Tự động cắt ảnh để phù hợp với container */
+    object-position: center; /* Căn giữa ảnh */
+    border-radius: 10px; /* Làm tròn góc hình ảnh, bạn có thể thay đổi giá trị cho phù hợp */
+  }

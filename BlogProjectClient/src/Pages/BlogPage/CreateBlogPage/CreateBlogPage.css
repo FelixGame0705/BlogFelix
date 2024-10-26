@@ -1,0 +1,25 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; /* Đảm bảo chiều cao tối thiểu bằng 100% chiều cao màn hình */
+}
+
+.page-content {
+  flex-grow: 1; /* Đảm bảo nội dung chính chiếm phần còn lại của trang */
+  padding: 0 20%;
+  background-color: #fff;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto; /* Đẩy footer xuống dưới cùng */
+}

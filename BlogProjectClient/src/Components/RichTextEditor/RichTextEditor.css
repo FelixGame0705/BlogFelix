@@ -1,0 +1,14 @@
+.ql-container .ql-snow{
+    border: 1px none #ffffff;
+}
+
+.contentLayout{
+    padding: 0 20%;
+    background-color: #fff;
+  }
+
+  @media (max-width: 768px){
+    .contentLayout{
+      padding: 0 5%;
+    }
+  }

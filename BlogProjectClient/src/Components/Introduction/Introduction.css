@@ -1,0 +1,26 @@
+/* Cấu hình cho nội dung để đồng bộ với header */
+.content-section {
+    padding: 0 20%; /* Padding 20% cho nội dung để đồng bộ với header */
+}
+
+/* Đảm bảo hình ảnh không vượt quá kích thước container */
+.image-content img {
+    max-width: 80%;
+    max-height: auto; /* Điều chỉnh chiều cao tối đa của hình ảnh để tương đương với logo */
+    object-fit: cover; /* Cắt hình ảnh để phù hợp với khung hình */
+    object-position: center; /* Căn giữa hình ảnh trong khung */
+    border-radius: 8px;
+}
+
+/* Tùy chỉnh text và hình ảnh */
+.text-content {
+    padding: 0; /* Giảm padding bên trong text-content vì padding bên ngoài đã đủ */
+}
+
+.image-content {
+    max-width: 10%;
+    padding: 0; /* Giảm padding bên trong image-content vì padding bên ngoài đã đủ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

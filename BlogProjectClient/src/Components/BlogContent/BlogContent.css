@@ -1,0 +1,31 @@
+.blog-content {
+    max-width: 800px;
+    /* margin: 0 auto;
+    padding: 20px; */
+  }
+  
+  .ant-breadcrumb {
+    background-color: #f0f2f5;
+    /* padding: 10px 0; */
+  }
+  
+  .ant-breadcrumb-item {
+    font-size: 16px;
+  }
+  
+  .ant-typography {
+    margin-top: 16px;
+  }
+  .title{
+    text-align: center;
+  }
+  .contentLayout{
+    padding: 0 20%;
+    background-color: #fff;
+  }
+
+  @media (max-width: 768px){
+    .contentLayoutt{
+      padding: 0;
+    }
+  }

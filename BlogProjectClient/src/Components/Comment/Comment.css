@@ -1,0 +1,18 @@
+.right-drop-down{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.commentLayout{
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 2%;
+    padding-bottom: 0;
+    background-color: #fff;
+  }
+
+  @media (max-width: 768px){
+    .commentLayout{
+      padding: 5%;
+    }
+  }
