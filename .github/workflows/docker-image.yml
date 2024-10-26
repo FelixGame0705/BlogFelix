@@ -40,8 +40,8 @@ jobs:
       # Build and run Docker Compose
       - name: Build and Run Docker Compose
         run: |
-          docker-compose -f ./docker-compose.yml build
-          docker-compose -f ./docker-compose.yml up -d
+          docker-compose -f ./docker-compose.yaml build
+          docker-compose -f ./docker-compose.yaml up -d
 
       # Push Docker Images to GitHub Container Registry (optional)
       - name: Push Docker Images to GitHub Container Registry
