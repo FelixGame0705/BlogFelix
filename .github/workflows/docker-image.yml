@@ -18,7 +18,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t blogfelix:latest .
+          docker-compose build -t blogfelix:latest .
 
       - name: Login to Docker Hub
         env:
@@ -29,8 +29,8 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker tag blogfelix:latest tientrandevops/blogfelix:latest
-          docker push tientrandevops/blogfelix:latest
+          docker-compose tag blogfelix:latest tientrandevops/blogfelix:latest
+          docker-compose push tientrandevops/blogfelix:latest
 
       - name: Login to EC2
         env:
@@ -53,9 +53,9 @@ jobs:
           docker pull tientrandevops/blogfelix:latest
           
           # Dừng và xóa container cũ (nếu có)
-          docker ps -q --filter "name=blogfelix" | xargs -r docker stop
-          docker ps -aq --filter "name=blogfelix" | xargs -r docker rm
+          docker-compose ps -q --filter "name=blogfelix" | xargs -r docker stop
+          docker-compose ps -aq --filter "name=blogfelix" | xargs -r docker rm
 
           # Chạy container mới
-          docker run -d --name name=blogfelix -p 80:80 tientrandevops/blogfelix:latest
+          docker-compose run -d --name name=blogfelix -p 80:80 tientrandevops/blogfelix:latest
           EOF
