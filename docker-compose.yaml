@@ -1,17 +1,38 @@
+version: '3.8'
+
 services:
   blog-project-client:
-    image: blog-project-client:latest
+    image: tientrandevops/blog-project-client:latest  # Thay 'your_dockerhub_username' bằng tên người dùng của bạn
     build:
       context: ./BlogProjectClient
       dockerfile: Dockerfile
       args:
         GOOGLE_ID: 798297429660-bi65t8db5f7l5qd9mqlho172f8bm9175.apps.googleusercontent.com
-  
+
   blog-project-api:
-    image: blog-project-server:latest
+    image: tientrandevops/blog-project-server:latest  # Thay 'your_dockerhub_username' bằng tên người dùng của bạn
     build:
       context: ./BlogProjectServer
       dockerfile: ./api/Dockerfile
+    depends_on:
+      - db  # Chỉ định rằng API cần cơ sở dữ liệu
+    environment:
+      SQLSERVER_DB: db  # Tên cơ sở dữ liệu
+      SQLSERVER_USER: sa  # Tên người dùng cơ sở dữ liệu
+      SQLSERVER_PASSWORD: 12345  # Mật khẩu người dùng cơ sở dữ liệu
+      SQLSERVER_HOST: db  # Tên dịch vụ của cơ sở dữ liệu
 
-  
-  
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest  # Hình ảnh SQL Server
+    restart: always
+    environment:
+      SA_PASSWORD: 12345  # Đặt mật khẩu cho tài khoản sa
+      ACCEPT_EULA: "Y"  # Chấp nhận điều khoản EULA
+      MSSQL_PID: "Developer"  # Chọn phiên bản
+    ports:
+      - "1433:1433"  # Mở cổng 1433
+    volumes:
+      - db_data:/var/opt/mssql  # Lưu trữ dữ liệu
+
+volumes:
+  db_data:  # Tạo volume để lưu trữ dữ liệu cơ sở dữ liệu
