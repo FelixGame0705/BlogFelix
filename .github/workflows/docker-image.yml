@@ -46,4 +46,4 @@ jobs:
       # Push Docker Images to GitHub Container Registry (optional)
       - name: Push Docker Images to GitHub Container Registry
         run: |
-          docker-compose -f ./docker-compose.yml push
+          docker-compose -f ./docker-compose.yaml push
