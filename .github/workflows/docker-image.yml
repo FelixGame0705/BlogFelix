@@ -18,7 +18,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker-compose build -t blogfelix:latest .
+          docker-compose -f ./docker-compose.yaml build
 
       - name: Login to Docker Hub
         env:
@@ -29,8 +29,7 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker-compose tag blogfelix:latest tientrandevops/blogfelix:latest
-          docker-compose push tientrandevops/blogfelix:latest
+          docker-compose -f ./docker-compose.yaml push
 
       - name: Login to EC2
         env:
@@ -49,13 +48,12 @@ jobs:
           sudo systemctl start docker
           sudo systemctl enable docker
           
-          # Pull image mới nhất từ Docker Hub
-          docker pull tientrandevops/blogfelix:latest
-          
-          # Dừng và xóa container cũ (nếu có)
-          docker-compose ps -q --filter "name=blogfelix" | xargs -r docker stop
-          docker-compose ps -aq --filter "name=blogfelix" | xargs -r docker rm
+          # Cài đặt Docker Compose nếu chưa có
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
 
-          # Chạy container mới
-          docker-compose run -d --name name=blogfelix -p 80:80 tientrandevops/blogfelix:latest
+          # Pull image mới nhất và chạy
+          docker-compose -f ~/docker-compose.yml down
+          docker-compose -f ~/docker-compose.yml pull
+          docker-compose -f ~/docker-compose.yml up -d
           EOF
