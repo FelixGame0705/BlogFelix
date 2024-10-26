@@ -182,7 +182,7 @@ const BlogList: React.FC<Props> = ({ setListBlogs }: Props) => {
        { loggedIn && decodedToken?.role === "AppUser" ? (<AddBlog />):(<></>)}
       <div className="header-container">
         <Title level={2} className="header-title">
-          Blog List
+          Blogs
         </Title>
         <Checkbox.Group
           onChange={handleCategoryChange}
