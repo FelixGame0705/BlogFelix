@@ -1,0 +1,50 @@
+services:
+  blog-project-api:
+    image: blog-project-server:latest
+    build:
+      context: ./BlogProjectServer
+      dockerfile: ./api/Dockerfile
+    networks:
+      - blog-felix-networks
+    depends_on:
+      - db
+    environment:
+      SQLSERVER_DB: db
+      SQLSERVER_USER: sa
+      SQLSERVER_PASSWORD: StrongP@ssword123!
+      SQLSERVER_HOST: db
+      ASPNETCORE_URLS: http://+:80
+    ports:
+      - 5000:80
+
+  blog-project-client:
+    image: blog-project-client:latest
+    build:
+      context: ./BlogProjectClient
+      dockerfile: Dockerfile
+      args:
+        GOOGLE_ID: 798297429660-bi65t8db5f7l5qd9mqlho172f8bm9175.apps.googleusercontent.com
+        API_ENDPOINT: http://localhost:5000/api/
+    networks:
+      - blog-felix-networks
+    ports:
+      - 3000:80
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    environment:
+      SA_PASSWORD: StrongP@ssword123!
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
+    networks:
+      - blog-felix-networks
+    volumes:
+      - db_data:/var/opt/mssql
+
+volumes:
+  db_data:
+
+networks:
+  blog-felix-networks:
+     name: blog_felix_networks

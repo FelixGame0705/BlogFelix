@@ -8,7 +8,10 @@ RUN npm i && npm ci
 
 COPY . .
 ARG GOOGLE_ID
+ARG API_ENDPOINT
 ENV GOOGLE_CLIENT_ID=${GOOGLE_ID}
+ENV API_URL=${API_ENDPOINT}
+
 RUN npm run build
 
 FROM nginx:alpine AS runner

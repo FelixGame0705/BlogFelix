@@ -1,22 +1,29 @@
 services:
   blog-project-client:
     container_name: blog-project-client
-    image: blog-project-client:latest
+    image: tientrandevops/blog-project-client:latest
     restart: always
     networks:
-      - blog-proj-networks
+      - blog-felix-networks
     ports:
       - 3000:80
     
   blog-project-api:
     container_name: blog-project-api
-    image: blog-project-server:latest
+    image: tientrandevops/blog-project-server:latest
     restart: always
+    environment:
+      SQLSERVER_DB: ${DB_NAME}
+      SQLSERVER_USER: ${DB_USERNAME}
+      SQLSERVER_PASSWORD: ${DB_PASSWORD}
+      SQLSERVER_HOST: ${DB_HOST}
+      ASPNETCORE_URLS: http://+:80
     ports:
-      - 5290:80
+      - 5000:80
     networks:
-      - blog-proj-networks
+      - blog-felix-networks
 
 networks:
-  blog-proj-networks:
-    name: blog-proj-networks
+  blog-felix-networks:
+     name: blog_felix_networks
+     external: true

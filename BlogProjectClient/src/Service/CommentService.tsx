@@ -4,7 +4,7 @@ import { handleError } from "../Helpers/ErrorHandler";
 import { UserProfileToken } from "../Models/User";
 import { CommentData } from "../data";
 
-const api = "http://localhost:5290/api/"
+const api = process.env.API_URL ?? "http://localhost:5000/api/"
 
 export const createCommentAPI = async (comment:CommentData) => {
     try{
