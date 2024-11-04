@@ -9,12 +9,6 @@ on:
 jobs:
   build-image:
     runs-on: ubuntu-latest'
-    strategy:
-      matrix:
-        service: [
-          blog-project-api,
-          blog-project-client
-        ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,7 +22,7 @@ jobs:
         env:
           GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
           API_ENDPOINT: ${{secrets.API_ENDPOINT}}
-        run: docker compose build ${{matrix.service}} && docker compose push ${{matrix.service}}
+        run: docker compose build && docker compose push
   
   deploy-service:
     runs-on: arisa-server
