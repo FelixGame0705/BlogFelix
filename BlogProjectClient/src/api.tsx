@@ -10,7 +10,7 @@ import { title } from "process";
 import { timeStamp } from "console";
 import { PostAuthorResponse } from "./Models/User";
 
-const api = "http://localhost:5290/api/";
+const api = "http://localhost:5000/api/";
 export const getBlogContentData = async (query: string) => {
   try {
     const data = await axios.get<BlogContentData>(`${api}post/${query}`);

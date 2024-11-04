@@ -73,13 +73,13 @@ const BlogSection: React.FC<Props> = ({ listResult }: Props) => {
       >
         {/* Phần blog lớn */}
         <Col xs={24} md={12}>
-          <Link to={`/blogs/${listResult[0].postID}`}>
+          <Link to={`/blogs/${listResult[0]?.postID}`}>
             <Card
               hoverable
               cover={
                 <img
-                  alt={listResult[0].title}
-                  src={getFirstImage(listResult[0].content) || undefined}
+                  alt={listResult[0]?.title}
+                  src={getFirstImage(listResult[0]?.content) || undefined}
                 />
               }
               style={{

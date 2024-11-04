@@ -1,16 +1,6 @@
 version: '3.8'
 
 services:
-  blog-project-client:
-    image: tientrandevops/blog-project-client:latest  # Docker Hub username
-    build:
-      context: ./BlogProjectClient
-      dockerfile: Dockerfile
-      args:
-        GOOGLE_ID: 798297429660-bi65t8db5f7l5qd9mqlho172f8bm9175.apps.googleusercontent.com
-    ports:
-      - "3000:3000"  # Map host port 3000 to container port 3000
-
   blog-project-api:
     image: tientrandevops/blog-project-server:latest  # Docker Hub username
     build:
@@ -19,24 +9,34 @@ services:
     depends_on:
       - db  # API depends on the database
     environment:
-      SQLSERVER_DB: db  # Database name
-      SQLSERVER_USER: sa  # Database username
+      SQLSERVER_DB: "db"  # Database name
+      SQLSERVER_USER: "sa"  # Database username
       SQLSERVER_PASSWORD: "StrongP@ssword123!"  # Database password
-      SQLSERVER_HOST: db  # Database service name
+      SQLSERVER_HOST: "db"  # Database host service name
     ports:
-      - "5290:5290"  # Map host port 5290 to container port 5290
+      - "5000:8080"  # Map host port 5290 to container port 5290 (change if your API actually listens on another port)
+
+  blog-project-client:
+    image: tientrandevops/blog-project-client:latest  # Docker Hub username
+    build:
+      context: ./BlogProjectClient
+      dockerfile: Dockerfile
+    environment:
+      GOOGLE_ID: "798297429660-bi65t8db5f7l5qd9mqlho172f8bm9175.apps.googleusercontent.com"
+    ports:
+      - "3000:80"  # Map host port 3000 to container port 80 (default HTTP port)
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest  # SQL Server image
     restart: always
     environment:
-      SA_PASSWORD: "StrongP@ssword123!"  # Set password for 'sa' account
+      SA_PASSWORD: "StrongP@ssword123!"  # Password for 'sa' account
       ACCEPT_EULA: "Y"  # Accept EULA
-      MSSQL_PID: "Developer"  # Choose SQL Server Developer edition
+      MSSQL_PID: "Developer"  # Use SQL Server Developer edition
     ports:
       - "1433:1433"  # Map host port 1433 to container port 1433
     volumes:
       - db_data:/var/opt/mssql  # Data persistence
 
 volumes:
-  db_data:  # Create volume for database storage
+  db_data:  # Volume for database storage

@@ -1,18 +1,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0
 WORKDIR /api
-EXPOSE 80
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /appbuild
+WORKDIR /BlogProjectServer
 
 COPY . .
 RUN dotnet restore
-WORKDIR /appbuild/api
+WORKDIR /BlogProjectServer/api
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
 WORKDIR /api
-COPY --from=build /appbuild/api/out .
+COPY --from=build /BlogProjectServer/api/out .
 
 ENTRYPOINT ["dotnet", "api.dll"]

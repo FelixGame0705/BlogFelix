@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure services
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
@@ -33,52 +33,58 @@ builder.Services.AddSwaggerGen(option =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
             },
             Array.Empty<string>()
         }
     });
 });
-builder.Services.AddControllers().AddNewtonsoftJson(options=>{
+
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
-builder.Services.AddControllers();
-builder.Services.AddDbContext<ApplicationDBContext>(options =>{
+
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole>(
-    options => {
-        options.Password.RequireDigit = true;
-        options.Password.RequireLowercase = true;
-        options.Password.RequireUppercase = true;
-        options.Password.RequireNonAlphanumeric = true;
-        options.Password.RequiredLength = 12;
-    }
-).AddEntityFrameworkStores<ApplicationDBContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 12;
+})
+.AddEntityFrameworkStores<ApplicationDBContext>();
 
-builder.Services.AddAuthentication(options => {
+builder.Services.AddAuthentication(options =>
+{
     options.DefaultAuthenticateScheme =
-    options.DefaultChallengeScheme = 
-    options.DefaultForbidScheme = 
-    options.DefaultScheme = 
-    options.DefaultSignInScheme =  
+    options.DefaultChallengeScheme =
+    options.DefaultForbidScheme =
+    options.DefaultScheme =
+    options.DefaultSignInScheme =
     options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => {
-    options.TokenValidationParameters = new TokenValidationParameters{
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
         ValidateIssuer = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(
-            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
-        )
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
     };
 });
 
+// Register application services
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IPostAuthorRepository, PostAuthorRepository>();
@@ -86,7 +92,7 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -95,20 +101,24 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(x=>x
-.AllowAnyMethod()
-.AllowAnyHeader()
-.AllowCredentials()
-//.WithOrigins("https://localhost:44351"))
-.SetIsOriginAllowed(origin => true)
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .SetIsOriginAllowed(origin => true)
 );
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-using (var scope = app.Services.CreateScope()) {
+// Run migrations only if necessary
+using (var scope = app.Services.CreateScope())
+{
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
-    context.Database.Migrate();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
 }
 
 app.MapControllers();

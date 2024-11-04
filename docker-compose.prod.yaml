@@ -13,7 +13,7 @@ services:
     image: blog-project-server:latest
     restart: always
     ports:
-      - 8080:80
+      - 5290:80
     networks:
       - blog-proj-networks
 
