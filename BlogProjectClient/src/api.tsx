@@ -1,4 +1,5 @@
 import axios from "axios";
+import config from "dotenv";
 import {
   BlogContentData,
   BlogListContentData,
@@ -9,7 +10,7 @@ import {
 import { title } from "process";
 import { timeStamp } from "console";
 import { PostAuthorResponse } from "./Models/User";
-const api = process.env.API_URL ?? "http://localhost:5000/api/"
+const api = process.env.REACT_APP_API_URL ?? "http://localhost:5000/api/"
 export const getBlogContentData = async (query: string) => {
   try {
     const data = await axios.get<BlogContentData>(`${api}post/${query}`);

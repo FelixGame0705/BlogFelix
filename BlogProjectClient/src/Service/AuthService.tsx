@@ -3,7 +3,7 @@ import axios from "axios"
 import { handleError } from "../Helpers/ErrorHandler";
 import { UserProfileToken } from "../Models/User";
 
-const api = process.env.API_URL ?? "http://localhost:5000/api/"
+const api = process.env.REACT_APP_API_URL ?? "http://localhost:5000/api/"
 
 export const loginAPI = async (username: string, password: string) => {
     try{
