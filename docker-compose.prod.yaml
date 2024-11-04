@@ -13,7 +13,7 @@ services:
     image: tientrandevops/blog-project-server:latest
     restart: always
     environment:
-      ConnectionStrings__DB: Server=${DB_HOST};uid=${DB_USERNAME};pwd=${DB_PASSWORD};database=${DB_NAME};TrustServerCertificate=True
+      ConnectionStrings__DefaultConnection: Server=${DB_HOST};uid=${DB_USERNAME};pwd=${DB_PASSWORD};database=${DB_NAME};TrustServerCertificate=True
       ASPNETCORE_URLS: http://+:80
     ports:
       - 5000:80
