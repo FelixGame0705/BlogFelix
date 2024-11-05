@@ -138,7 +138,7 @@ const CreateBlogEditor = ({ userRole, onBlogCreate }: Props) => {
             </Space>
           </>
         )}
-        options={items.map((item: any) => ({ label: item, value: item }))}
+        options={items?.map((item: any) => ({ label: item, value: item }))}
       />
     </div>
   );

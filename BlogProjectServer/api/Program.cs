@@ -12,7 +12,16 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure services
+// Cấu hình CORS để cho phép mọi nguồn gốc
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("OpenCorsPolicy", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
+// Cấu hình các dịch vụ khác
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -84,7 +93,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Register application services
+// Đăng ký các dịch vụ ứng dụng
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IPostAuthorRepository, PostAuthorRepository>();
@@ -92,31 +101,19 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// Cấu hình pipeline xử lý HTTP
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials()
-    .SetIsOriginAllowed(origin => true)
-);
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        policy => policy.WithOrigins("https://felixtien.dev")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod());
-});
+// Sử dụng chính sách CORS đã mở
+app.UseCors("OpenCorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Run migrations only if necessary
+// Chạy migration nếu cần
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
