@@ -92,8 +92,8 @@ const BlogSection: React.FC<Props> = ({ listResult }: Props) => {
               }}
             >
               <Card.Meta
-                title={listResult[0].title}
-                description={stripHtmlTags(listResult[0].content)}
+                title={listResult[0]?.title}
+                description={stripHtmlTags(listResult[0]?.content)}
               />
             </Card>
           </Link>
@@ -103,16 +103,16 @@ const BlogSection: React.FC<Props> = ({ listResult }: Props) => {
         <Col xs={24} md={12}>
           <Row gutter={[16, 16]}>
             {/* Hàng 1 */}
-            {listResult.slice(1).map((item, index) => (
+            {listResult?.slice(1).map((item, index) => (
               <Col key={index} xs={24} md={12} className="card-item">
-                <Link to={`/blogs/${item.postID}`}>
+                <Link to={`/blogs/${item?.postID}`}>
                   <Card
                     hoverable
                     cover={
                       <img
                         alt={item.title}
                         src={
-                          getFirstImage(listResult[index].content) || undefined
+                          getFirstImage(listResult[index]?.content) || undefined
                         }
                       />
                     }
@@ -120,7 +120,7 @@ const BlogSection: React.FC<Props> = ({ listResult }: Props) => {
                   >
                     <Card.Meta
                       title={item.title}
-                      description={stripHtmlTags(item.content)}
+                      description={stripHtmlTags(item?.content)}
                     />
                   </Card>
                 </Link>
