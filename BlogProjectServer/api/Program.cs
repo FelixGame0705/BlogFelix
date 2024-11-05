@@ -105,6 +105,14 @@ app.UseCors(x => x
     .SetIsOriginAllowed(origin => true)
 );
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy => policy.WithOrigins("https://felixtien.dev")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
