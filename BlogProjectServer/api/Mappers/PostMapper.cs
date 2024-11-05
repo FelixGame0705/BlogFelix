@@ -38,6 +38,7 @@ namespace api.Mappers
                 // PostID = postModel.PostID,
                 Category = postModel.Category,
                 Content = postModel.Content,
+                Status = "Active",
                 // PublicationDate = postModel.PublicationDate,
                 Tags = postModel.Tags,
                 Title = postModel.Title
@@ -50,6 +51,7 @@ namespace api.Mappers
                 Category = postModel.Category,
                 Content = postModel.Content,
                 // PublicationDate = postModel.PublicationDate,
+                Status = "Active",
                 Tags = postModel.Tags,
                 Title = postModel.Title
             };
