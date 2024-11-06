@@ -53,7 +53,7 @@ const HomePage: React.FC<Props> = () => {
         <BlogSection listResult={listBlog} />
       )}
 
-      <StandardSection />
+      {/* <StandardSection /> */}
     </div>
   );
 };
