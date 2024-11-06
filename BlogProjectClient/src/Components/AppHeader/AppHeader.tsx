@@ -25,7 +25,7 @@ const AppHeader = () => {
         {isLoggedIn() &&<p className="welcome">Welcome, {decodedToken?.given_name||userGoogle?.fullName}</p>}
         {/* Logo */}
         <div className="custom-logo">
-          <Link to="/" style={{ color: "white", fontSize: "20px" }}><Image width={100} src="https://res.cloudinary.com/dno1kjdkk/image/upload/v1729951724/iwbk1duxpnforsopvqdx.png" preview={false}/></Link>
+          <Link to="/" style={{ color: "white", fontSize: "20px" }}><Image width={100} src="https://res.cloudinary.com/dno1kjdkk/image/upload/v1730870142/AI_Generated_Logo_2024-11-06_ad63217e-ffed-4292-b3f4-c58e34fe7cf5_d4bn1t.png" preview={false}/></Link>
         </div>
 
         {/* Menu ngang cho desktop */}
