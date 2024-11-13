@@ -19,7 +19,7 @@ type Props = {
 const SelectComment = ({onChangeItem, optionsItem}: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const [selectedItem, setSelectedItem] = useState(optionItems[1].label);
-  const [isDesc, setDesc] = useState(true);
+  const [isDesc, setDesc] = useState(false);
   const [commentsSize, setCommentsSize] = useState<number|undefined>(10);
   const { id } = useParams();
   const filter = useSelector((state: RootState) => state.comments.filter);
@@ -30,12 +30,12 @@ const SelectComment = ({onChangeItem, optionsItem}: Props) => {
   
     // Cập nhật trạng thái dựa vào `option`
     if (option === optionItems[0].label) {
-      setDesc(false);
+      setDesc(true);
       setCommentsSize(undefined);
     } else if (option === optionItems[1].label) {
-      setDesc(false);
-    } else if (option === optionItems[2].label) {
       setDesc(true);
+    } else if (option === optionItems[2].label) {
+      setDesc(false);
     }
   
     // Cập nhật `selectedItem` sau khi các thay đổi khác đã được xử lý
@@ -48,9 +48,9 @@ const SelectComment = ({onChangeItem, optionsItem}: Props) => {
   }, [isDesc, selectedItem]); // Theo dõi `isDesc` và `selectedItem`
   
   const fetchData = async () =>{
-    await dispatch(setFilter({ isDescending: isDesc, postID:  Number(id), pageSize: commentsSize }))
+    dispatch(setFilter({ isDescending: isDesc, postID:  Number(id), pageSize: commentsSize }))
     const latestFilter = store.getState().comments.filter;
-    await dispatch(fetchComments(latestFilter!));
+    dispatch(fetchComments(latestFilter!));
   }
   return (
     <>

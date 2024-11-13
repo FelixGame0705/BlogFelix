@@ -29,7 +29,6 @@ import { useAuth } from "../../Context/useAuth";
 import { UserInfo } from "../../Models/User";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { fetchComments } from "../../Features/comment/commentAction";
 
 const BlogContentPage = () => {
   const { id } = useParams();
