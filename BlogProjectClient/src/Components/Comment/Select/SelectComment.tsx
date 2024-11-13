@@ -19,7 +19,7 @@ type Props = {
 const SelectComment = ({onChangeItem, optionsItem}: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const [selectedItem, setSelectedItem] = useState(optionItems[1].label);
-  const [isDesc, setDesc] = useState(false);
+  const [isDesc, setDesc] = useState(true);
   const [commentsSize, setCommentsSize] = useState<number|undefined>(10);
   const { id } = useParams();
   const filter = useSelector((state: RootState) => state.comments.filter);
