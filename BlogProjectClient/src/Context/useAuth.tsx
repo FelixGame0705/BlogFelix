@@ -57,7 +57,6 @@ export const UserProvider = ({children}: Props) => {
         
         if (token) {
             const decoded = jwtDecode<UserDeCodeToken>(token);
-            console.log("Decode: "+decoded.nameid)
             setDecodedToken(decoded);
         }
     }, [user]);
@@ -160,7 +159,7 @@ export const UserProvider = ({children}: Props) => {
     };
 
     const isLoggedIn = () => {
-        console.log("Login " + !!user)
+        // console.log("Login " + !!user)
         return !!user||!!userGoogle;
     };
 

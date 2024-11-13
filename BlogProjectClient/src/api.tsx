@@ -14,7 +14,6 @@ const api = process.env.REACT_APP_API_URL ?? "http://localhost:5000/api/"
 export const getBlogContentData = async (query: string) => {
   try {
     const data = await axios.get<BlogContentData>(`${api}post/${query}`);
-    console.log("Hello"+data.data.postAuthors.map((item)=>item.userName));
     return data;
   } catch (error: any) {
     console.log("error message from API: ", error.message);
@@ -163,7 +162,6 @@ export const getCommentData = async ({
     const data = await axios.get<CommentShowData[]>(
       `${api}comment/post?${params.toString()}`
     );
-    console.log("Comments:"+`${api}comment/post?${params.toString()}`);
     return data;
   } catch (error: any) {
     console.log("error message from API: ", error.message);
@@ -184,7 +182,6 @@ export const getCategories = async () => {
   try {
     // Thêm các tham số vào URLSearchParams nếu chúng tồn tại
     const data = await axios.get<string[]>(`${api}post/categories`);
-    console.log(data.data);
     return data;
   } catch (error: any) {
     console.log("error message from API: ", error.message);

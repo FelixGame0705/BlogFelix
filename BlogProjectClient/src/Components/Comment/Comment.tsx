@@ -9,12 +9,15 @@ import { optionItems } from "../../Constants/Constants";
 import { deleteComment } from "../../api";
 import { useAuth } from "../../Context/useAuth";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment } from "../../Features/comment/commentSlice";
 
 const { TextArea } = Input;
 
 type CommentProps = {
   pageID: number;
-  getOptions: (options: any) => string;
+  // getOptions: (options: any) => string;
   commentsData: CommentShowData[];
   onCommentCreate: (comment: {
     postID: number;
@@ -30,17 +33,20 @@ const Comment = ({
   pageID,
   commentsData,
   onCommentCreate,
-  getOptions,
+  // getOptions,
 }: CommentProps) => {
   const [comments, setComments] = useState<CommentShowData[]>([]);
   const [replyVisible, setReplyVisible] = useState(true);
   const [newComment, setNewComment] = useState<string>("");
   const { decodedToken, isLoggedIn, userGoogle, user } = useAuth();
+  const commentsRedux = useSelector((state:RootState) => state.comments.comments)
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
+
   useEffect(() => {
-    setComments(commentsData);
-  }, [commentsData]);
+    setComments(commentsRedux);
+  }, [commentsRedux]);
 
   const handleReplyToggle = () => {
     setReplyVisible(!replyVisible);
@@ -72,6 +78,7 @@ const Comment = ({
         avatarURL: userGoogle?.avatarUrl
       });
       setComments([...comments, newCommentData]);
+      dispatch(addComment(newCommentData))
       setNewComment(""); // Xóa bình luận mới sau khi đã thêm
     }
   };
@@ -81,7 +88,7 @@ const Comment = ({
   };
 
   const handleChangeItemComment = (option: any) => {
-    getOptions(option);
+    // getOptions(option);
     return option;
   };
 
@@ -123,7 +130,7 @@ const Comment = ({
           </Button>
         )}
         <List
-          dataSource={comments}
+          dataSource={commentsRedux}
           renderItem={(item) => (
             <Card
               style={{ marginBottom: 16 }}

@@ -23,6 +23,7 @@ function App() {
     <>
       {/* <HomePage/> */}
       {/* <BlogPage></BlogPage> */}
+      
       <UserProvider>
         <AppHeader/>
         <Outlet />

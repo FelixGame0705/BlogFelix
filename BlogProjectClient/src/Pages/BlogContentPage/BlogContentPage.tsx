@@ -27,6 +27,9 @@ import { toast } from "react-toastify";
 import { optionItems } from "../../Constants/Constants";
 import { useAuth } from "../../Context/useAuth";
 import { UserInfo } from "../../Models/User";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { fetchComments } from "../../Features/comment/commentAction";
 
 const BlogContentPage = () => {
   const { id } = useParams();
@@ -34,19 +37,16 @@ const BlogContentPage = () => {
   const [comments, setComments] = useState<CommentShowData[]>([]);
   const [blog, setBlog] = useState<BlogContentData>();
   const [authors, setAuthors] = useState<UserInfo[] | undefined>();
-  const [category, setCategory] = useState<any>(null);
-  const [commentsSize, setCommentsSize] = useState<number>(10);
+  // const [category, setCategory] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const [isDesc, setDesc] = useState(true);
+  // const [isDesc, setDesc] = useState(true);
+  const commentsRedux = useSelector((state:RootState) => state.comments.comments)
   const navigate = useNavigate();
   const { user, decodedToken } = useAuth();
-  let params = {
-    // Example sorting field
-    postID: id,
-    isDescending: isDesc, // Ascending order
-    pageNumber: 1, // Page number
-    pageSize: commentsSize || undefined, // Page size
-  };
+
+  useEffect(()=>{
+    setComments(commentsRedux)
+  },[commentsRedux])
   useEffect(() => {
     const fetchBlogContent = async () => {
       const isPageReloaded = sessionStorage.getItem("page-reloaded") === "true";
@@ -89,7 +89,6 @@ const BlogContentPage = () => {
       const result = await getBlogContentData(id!);
       setBlog(result?.data);
       setAuthors(result?.data?.postAuthors);
-      console.log("Authors: " + authors);
       localStorage.setItem(`blog-content-${id}`, JSON.stringify(result?.data));
 
       // Xóa đánh dấu tải lại trang khi người dùng rời khỏi trang hoặc đóng tab
@@ -202,8 +201,7 @@ const BlogContentPage = () => {
       try {
         // Gọi API để tạo comment
         const response = await createCommentData(comment);
-        await handleCommentShowOnPost();
-        console.log("Callll ID: " + comment.postID);
+        // await handleCommentShowOnPost();
         if (!response?.status) {
           throw new Error("Failed to create blog.");
         }
@@ -222,59 +220,59 @@ const BlogContentPage = () => {
     },
     [navigate]
   );
-  const handleShowComment = async () => {
-    try {
-      setCommentsSize(commentsSize! + 10);
-      // Gọi API để tạo comment
-      const response = await getCommentData(params);
-      if (!response?.status) {
-        throw new Error("Failed to show comment.");
-      }
-      console.log("Data123 "+response.data.map((item)=>item.fullName));
-      setComments(response.data);
-      // Điều hướng người dùng đến trang blog sau khi tạo xong
-    } catch (error) {
-      notification.error({
-        message: "Error",
-        description:
-          error instanceof Error ? error.message : "An unknown error occurred.",
-      });
-    }
-  };
-  const handleCommentShowOnPost = async () => {
-    try {
-      // Gọi API để tạo comment
-      const response = await getCommentData(params);
-      // console.log("comments: "+params.)
-      if (!response?.status) {
-        throw new Error("Failed to create blog.");
-      }
-      setComments(response.data);
+  // const handleShowComment = async () => {
+  //   try {
+  //     setCommentsSize(commentsSize! + 10);
+  //     // Gọi API để tạo comment
+  //     const response = await getCommentData(params);
+  //     if (!response?.status) {
+  //       throw new Error("Failed to show comment.");
+  //     }
+  //     console.log("Data123 "+response.data.map((item)=>item.fullName));
+  //     setComments(response.data);
+  //     // Điều hướng người dùng đến trang blog sau khi tạo xong
+  //   } catch (error) {
+  //     notification.error({
+  //       message: "Error",
+  //       description:
+  //         error instanceof Error ? error.message : "An unknown error occurred.",
+  //     });
+  //   }
+  // };
+  // const handleCommentShowOnPost = async () => {
+  //   try {
+  //     // Gọi API để tạo comment
+  //     const response = await getCommentData(params);
+  //     // console.log("comments: "+params.)
+  //     if (!response?.status) {
+  //       throw new Error("Failed to create blog.");
+  //     }
+  //     setComments(commentsRedux);
 
-      // Điều hướng người dùng đến trang blog sau khi tạo xong
-    } catch (error) {
-      notification.error({
-        message: "Error",
-        description:
-          error instanceof Error ? error.message : "An unknown error occurred.",
-      });
-    }
-  };
-  useEffect(() => {
-    handleCommentShowOnPost();
-  }, []);
+  //     // Điều hướng người dùng đến trang blog sau khi tạo xong
+  //   } catch (error) {
+  //     notification.error({
+  //       message: "Error",
+  //       description:
+  //         error instanceof Error ? error.message : "An unknown error occurred.",
+  //     });
+  //   }
+  // };
+  // useEffect(() => {
+  //   handleCommentShowOnPost();
+  // }, [isDesc, commentsSize]);
 
-  const handleOptionsUse = (options: any) => {
-    setOptionFilter(options);
-    if (optionFilter === optionItems[0].label) {
-      setDesc(true);
-      params.pageSize = undefined;
-    }
-    if (optionFilter === optionItems[1].label) setDesc(false);
-    if (optionFilter === optionItems[2].label) setDesc(true);
-    handleCommentShowOnPost();
-    return optionFilter;
-  };
+  // const handleOptionsUse = (options: any) => {
+  //   setOptionFilter(options);
+  //   if (optionFilter === optionItems[0].label) {
+  //     setDesc(false);
+  //     params.pageSize = undefined;
+  //   }
+  //   if (optionFilter === optionItems[1].label) setDesc(false);
+  //   if (optionFilter === optionItems[2].label) setDesc(true);
+  //   handleCommentShowOnPost();
+  //   return optionFilter;
+  // };
 
   return (
     <div className="app-container">
@@ -310,10 +308,10 @@ const BlogContentPage = () => {
                 avatarURL: commentData.avatarURL
               })
             }
-            getOptions={handleOptionsUse}
+            // getOptions={handleOptionsUse}
           />
         )}
-        <ShowMoreButton pageNumber={0} onShowmore={handleShowComment} />
+        <ShowMoreButton pageNumber={0} />
       </main>
     </div>
   );
