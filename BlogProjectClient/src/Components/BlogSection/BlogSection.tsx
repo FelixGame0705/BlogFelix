@@ -112,7 +112,7 @@ const BlogSection: React.FC<Props> = ({ listResult }: Props) => {
                       <img
                         alt={item.title}
                         src={
-                          getFirstImage(listResult[index]?.content) || undefined
+                          getFirstImage(listResult[index+1]?.content) || undefined
                         }
                       />
                     }
