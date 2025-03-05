@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BlogContentData, BlogListContentData } from "../../data";
 import {
+  formatContent,
   getFirstImage,
   removeImages,
   stripHtmlTags,
@@ -93,7 +94,7 @@ const BlogSection: React.FC<Props> = ({ listResult }: Props) => {
             >
               <Card.Meta
                 title={listResult[0]?.title}
-                description={stripHtmlTags(listResult[0]?.content)}
+                description={stripHtmlTags(formatContent(listResult[0]?.content, 300))}
               />
             </Card>
           </Link>
@@ -120,7 +121,7 @@ const BlogSection: React.FC<Props> = ({ listResult }: Props) => {
                   >
                     <Card.Meta
                       title={item.title}
-                      description={stripHtmlTags(item?.content)}
+                      description={stripHtmlTags(formatContent(item?.content, 300))}
                     />
                   </Card>
                 </Link>
