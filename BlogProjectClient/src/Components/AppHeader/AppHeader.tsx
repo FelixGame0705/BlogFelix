@@ -38,7 +38,7 @@ const AppHeader = () => {
             <Link to="/blogs">Blog</Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/game">Game</Link>
+            <Link to="https://felixgame0705.itch.io/">Game</Link>
           </Menu.Item>
           <Menu.Item key="3">
             <Link to="/project">Project</Link>
