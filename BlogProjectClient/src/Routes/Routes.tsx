@@ -9,6 +9,7 @@ import LoginPage from '../Pages/LoginPage/LoginPage'
 import ProtectedRoute from './ProtectedRoute'
 import Images from '../Pages/ImagesList/ImagesArtistPage'
 import ImagesArtistPage from '../Pages/ImagesList/ImagesArtistPage'
+import CreateImagesArtistPage from '../Pages/ImagesList/CreateImages/CreateImagesPage'
 
 
 export const router = createBrowserRouter
@@ -36,7 +37,7 @@ export const router = createBrowserRouter
                     element:<ImagesArtistPage></ImagesArtistPage>,
                     children: [{
                         path: "artist/upload",
-                        element: <CreateBlogPage/>
+                        element: <ProtectedRoute><CreateImagesArtistPage></CreateImagesArtistPage></ProtectedRoute>
                     },
                     ]
                 },
