@@ -67,8 +67,8 @@ const ImagesArtistPage = () => {
     try {
       const res = await createImagesArtist(
         values.ImageID || 0,
-        imageUrl,
         values.Name,
+        imageUrl,
         values.Description,
         values.UploadDate.toDate(),
         values.TypeImage
