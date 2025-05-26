@@ -98,6 +98,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IPostAuthorRepository, PostAuthorRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IImagesRepository, ImagesRepository>();
 
 var app = builder.Build();
 

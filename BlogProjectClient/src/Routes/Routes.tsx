@@ -7,6 +7,8 @@ import BlogContentPage from '../Pages/BlogContentPage/BlogContentPage'
 import CreateBlogPage from '../Pages/BlogPage/CreateBlogPage/CreateBlogPage'
 import LoginPage from '../Pages/LoginPage/LoginPage'
 import ProtectedRoute from './ProtectedRoute'
+import Images from '../Pages/ImagesList/ImagesArtistPage'
+import ImagesArtistPage from '../Pages/ImagesList/ImagesArtistPage'
 
 
 export const router = createBrowserRouter
@@ -28,6 +30,10 @@ export const router = createBrowserRouter
                 {
                     path: "login",
                     element: <LoginPage></LoginPage>
+                },
+                {
+                    path: "artist",
+                    element:<ImagesArtistPage></ImagesArtistPage>
                 },
                 {
                     path: "/", 

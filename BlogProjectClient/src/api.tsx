@@ -6,6 +6,7 @@ import {
   BlogsResultAPI,
   CommentData,
   CommentShowData,
+  ImageArtist,
 } from "./data";
 import { title } from "process";
 import { timeStamp } from "console";
@@ -40,6 +41,50 @@ export const updateBlogContentData = async (
     console.log("error message from API: ", error);
   }
 };
+
+export const createImagesArtist = async (
+  ImageID : number,
+  Name: string,
+  ImageUrl: string,
+  Description : string,
+  UploadDate: Date,
+  TypeImage: string
+) => {
+  try {
+    const data = await axios.post<ImageArtist>(`${api}createImages`, {
+      ImageID: ImageID,
+      Name: Name,
+      ImageUrl: ImageUrl,
+      Description: Description,
+      UploadDate: UploadDate,
+      TypeImage: TypeImage
+    });
+    console.log(data.data);
+    return data;
+  } catch (error: any) {
+    console.log("error message from API: ", error.message);
+  }
+}
+  const uploadToCloudinary = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "yc5t1mwl");
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/dno1kjdkk/upload`,
+      { method: "POST", body: formData }
+    );
+    const data = await res.json();
+    return data.url;
+  };
+  
+export const getImagesArtist = async (query: string) => {
+  try {
+    const data = await axios.get<ImageArtist[]>(`${api}images?typeImage=${query}`);
+    return data;
+  } catch (error: any) {
+    console.log("error message from API: ", error.message);
+  }
+}
 
 export const createPostAuthorData = async (
   postID:string|undefined,

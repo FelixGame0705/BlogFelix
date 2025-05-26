@@ -55,3 +55,11 @@ export interface CommentFilter {
   pageSize: number, // Page size
 };
 
+export interface ImageArtist {
+  ImageID : number;
+  ImageUrl: string;
+  Description : string;
+  UploadDate: Date;
+  TypeImage: string;
+}
+

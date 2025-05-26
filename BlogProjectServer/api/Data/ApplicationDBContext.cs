@@ -21,6 +21,7 @@ namespace api.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Interaction> Interactions { get; set; }
         public DbSet<PostAuthor> PostAuthors { get; set; }
+        public DbSet<Images> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

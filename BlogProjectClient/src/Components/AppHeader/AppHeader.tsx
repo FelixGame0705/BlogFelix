@@ -41,9 +41,12 @@ const AppHeader = () => {
             <Link to="https://felixgame0705.itch.io/">Game</Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Link to="/project">Project</Link>
+            <Link to="/artist">Artist</Link>
           </Menu.Item>
           <Menu.Item key="4">
+            <Link to="/project">Project</Link>
+          </Menu.Item>
+          <Menu.Item key="5">
             <Link to="/about">About</Link>
           </Menu.Item>
         </Menu>
@@ -72,11 +75,14 @@ const AppHeader = () => {
             <Menu.Item key="2" onClick={toggleDrawer}>
               <Link to="/game">Game</Link>
             </Menu.Item>
-            <Menu.Item key="3" onClick={toggleDrawer}>
-              <Link to="/project">Project</Link>
+            <Menu.Item key="3">
+            <Link to="/artist">Artist</Link>
             </Menu.Item>
-            <Menu.Item key="4" onClick={toggleDrawer}>
-              <Link to="/about">About</Link>
+            <Menu.Item key="4">
+            <Link to="/project">Project</Link>
+            </Menu.Item>
+            <Menu.Item key="5">
+            <Link to="/about">About</Link>
             </Menu.Item>
           </Menu>
         </Drawer>
