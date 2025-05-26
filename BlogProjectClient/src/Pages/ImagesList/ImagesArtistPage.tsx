@@ -105,7 +105,7 @@ const ImagesArtistPage = () => {
           <Image
             src={img.imageUrl}
             alt={img.description}
-            style={{ width: '100%', height: 250, objectFit: 'cover', borderRadius: 8 }}
+            style={{ width: '100%', height: '20vh', objectFit: 'cover', borderRadius: 8 }}
           />
           <div style={{ marginTop: 8 }}>{img.name}</div>
         </Col>
