@@ -94,86 +94,10 @@ const ImagesArtistPage = () => {
       Arts
     </Title>
 
-    {isLoggedIn() && (
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={handleCreate}
-        style={{ width: '100%', maxWidth: 600, marginBottom: 32 }}
-      >
-        <Form.Item label="Upload ảnh">
-          <Upload
-            customRequest={async ({ file, onSuccess, onError }) => {
-              setUploading(true);
-              try {
-                const url = await uploadToCloudinary(file as File);
-                setImageUrl(url);
-                onSuccess?.({}, new XMLHttpRequest());
-                message.success("Upload thành công");
-              } catch (err) {
-                onError?.(new Error("Upload thất bại"));
-                message.error("Upload thất bại");
-              } finally {
-                setUploading(false);
-              }
-            }}
-            showUploadList={false}
-          >
-            <Button icon={<UploadOutlined />} loading={uploading}>
-              Chọn ảnh để upload
-            </Button>
-          </Upload>
-          {imageUrl && (
-            <div style={{ textAlign: 'center' }}>
-              <Image
-                src={imageUrl}
-                alt="Preview"
-                style={{
-                  marginTop: 12,
-                  width: 200,
-                  height: 150,
-                  objectFit: 'cover',
-                  display: 'inline-block',
-                }}
-              />
-            </div>
-          )}
-        </Form.Item>
-        <FormItem name="Name" label="Tên ảnh">
-          <TextArea rows={3} />
-        </FormItem>
+    <Button type="primary" href="/artist/upload" style={{ marginBottom: 16 }}>
+  Đăng ảnh mới
+</Button>
 
-        <Form.Item name="Description" label="Mô tả">
-          <TextArea rows={3} />
-        </Form.Item>
-
-        <Form.Item
-          name="UploadDate"
-          label="Ngày tải lên"
-          rules={[{ required: true, message: 'Chọn ngày' }]}
-        >
-          <DatePicker defaultValue={dayjs()} style={{ width: '100%' }} />
-        </Form.Item>
-
-        <Form.Item
-          name="TypeImage"
-          label="Loại ảnh"
-          rules={[{ required: true, message: 'Chọn loại ảnh' }]}
-        >
-          <Select placeholder="Chọn loại">
-            <Option value="Pixels">Pixels</Option>
-            <Option value="2d">2D</Option>
-            <Option value="max">Max</Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" disabled={!imageUrl}>
-            Tạo ảnh
-          </Button>
-        </Form.Item>
-      </Form>
-    )}
 
     <Row gutter={[16, 16]} justify="center">
       {images.map((img: any) => (

@@ -33,7 +33,12 @@ export const router = createBrowserRouter
                 },
                 {
                     path: "artist",
-                    element:<ImagesArtistPage></ImagesArtistPage>
+                    element:<ImagesArtistPage></ImagesArtistPage>,
+                    children: [{
+                        path: "artist/upload",
+                        element: <CreateBlogPage/>
+                    },
+                    ]
                 },
                 {
                     path: "/", 
