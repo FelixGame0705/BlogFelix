@@ -34,12 +34,11 @@ export const router = createBrowserRouter
                 },
                 {
                     path: "artist",
-                    element:<ImagesArtistPage></ImagesArtistPage>,
-                    children: [{
-                        path: "artist/upload",
-                        element: <ProtectedRoute><CreateImagesArtistPage></CreateImagesArtistPage></ProtectedRoute>
-                    },
-                    ]
+                    element:<ImagesArtistPage></ImagesArtistPage>
+                },
+                {
+                    path: "artist/upload",
+                    element:<ProtectedRoute><CreateImagesArtistPage></CreateImagesArtistPage></ProtectedRoute>,
                 },
                 {
                     path: "/", 
