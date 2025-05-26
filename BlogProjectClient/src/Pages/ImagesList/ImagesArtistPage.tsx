@@ -91,7 +91,7 @@ const ImagesArtistPage = () => {
   return (
   <div style={{ padding: 24, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <Title level={2} className="header-title" style={{ textAlign: 'center' }}>
-      Blogs
+      Arts
     </Title>
 
     {isLoggedIn() && (
